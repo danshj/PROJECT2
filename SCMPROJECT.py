@@ -49,3 +49,66 @@ def intro():
     print("\t\t\t\t********")
     print("\t\t\t\tBANK MANAGEMENT SYSTEM")
     print("\t\t\t\t********")
+ input("Press Enter To Contiune: ")
+
+
+
+def writeAccount():
+    account = Account()
+    account.createAccount()
+    writeAccountsFile(account)
+
+def displayAll():
+    file = pathlib.Path("accounts.data")
+    if file.exists ():
+        infile = open('accounts.data','rb')
+        mylist = pickle.load(infile)
+        for item in mylist :
+            print(item.accNo," ", item.name, " ",item.type, " ",item.deposit )
+        infile.close()
+    else :
+        print("No records to display")
+        
+
+def displaySp(num): 
+    file = pathlib.Path("accounts.data")
+    if file.exists ():
+        infile = open('accounts.data','rb')
+        mylist = pickle.load(infile)
+        infile.close()
+        found = False
+        for item in mylist :
+            if item.accNo == num :
+                print("Your account Balance is = ",item.deposit)
+                found = True
+    else :
+        print("No records to Search")
+    if not found :
+        print("No existing record with this number")
+
+def depositAndWithdraw(num1,num2): 
+    file = pathlib.Path("accounts.data")
+    if file.exists ():
+        infile = open('accounts.data','rb')
+        mylist = pickle.load(infile)
+        infile.close()
+        os.remove('accounts.data')
+        for item in mylist :
+            if item.accNo == num1 :
+                if num2 == 1 :
+                    amount = int(input("Enter the amount to deposit : "))
+                    item.deposit += amount
+                    print("Your account is updted")
+                elif num2 == 2 :
+                    amount = int(input("Enter the amount to withdraw : "))
+                    if amount <= item.deposit :
+                        item.deposit -=amount
+                    else :
+                        print("You cannot withdraw larger amount")
+                
+    else :
+        print("No records to Search")
+    outfile = open('newaccounts.data','wb')
+    pickle.dump(mylist, outfile)
+    outfile.close()
+    os.rename('newaccounts.data', 'accounts.data')
