@@ -183,3 +183,49 @@ def writeAccountsFile(account) :
     pickle.dump(oldlist, outfile)
     outfile.close()
     os.rename('newaccounts.data', 'accounts.data')
+    # start of the program
+ch=''
+num=0
+intro()
+
+while ch != 8:
+    #system("cls");
+    print("\tMAIN MENU")
+    print("\t1. NEW ACCOUNT")
+    print("\t2. DEPOSIT AMOUNT")
+    print("\t3. WITHDRAW AMOUNT")
+    print("\t4. BALANCE ENQUIRY")
+    print("\t5. ALL ACCOUNT HOLDER LIST")
+    print("\t6. CLOSE AN ACCOUNT")
+    print("\t7. MODIFY AN ACCOUNT")
+    print("\t8. EXIT")
+    print("\tSelect Your Option (1-8) ")
+    ch = input()
+    #system("cls");
+    
+    if ch == '1':
+        writeAccount()
+    elif ch =='2':
+        num = int(input("\tEnter The account No. : "))
+        depositAndWithdraw(num, 1)
+    elif ch == '3':
+        num = int(input("\tEnter The account No. : "))
+        depositAndWithdraw(num, 2)
+    elif ch == '4':
+        num = int(input("\tEnter The account No. : "))
+        displaySp(num)
+    elif ch == '5':
+        displayAll();
+    elif ch == '6':
+        num =int(input("\tEnter The account No. : "))
+        deleteAccount(num)
+    elif ch == '7':
+        num = int(input("\tEnter The account No. : "))
+        modifyAccount(num)
+    elif ch == '8':
+        print("\tThanks for using bank managemnt system")
+        break
+    else :
+        print("Invalid choice")
+    
+    ch = input("Enter your choice : ")
